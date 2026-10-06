@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GitHub Basics – From Code to Community</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f1faf4;--card:#fff;--tx:#10241a;--mu:#506a5b;--g:#16883f;--gd:#0b3d24;--gl:#d7f3e2;--bd:#cfe8d9;--code:#0f2a1d;--ct:#d6f5e1}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08130d;--card:#10241a;--tx:#e6f6ec;--mu:#9bb8a8;--g:#3ddc84;--gd:#0b3d24;--gl:#173a28;--bd:#1f4a34;--code:#050d09}}
+:root[data-theme="dark"]{--bg:#08130d;--card:#10241a;--tx:#e6f6ec;--mu:#9bb8a8;--g:#3ddc84;--gd:#0b3d24;--gl:#173a28;--bd:#1f4a34;--code:#050d09}
+html{height:auto;scroll-behavior:smooth;scroll-padding-top:calc(70px + env(safe-area-inset-top,0px))}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.7 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:linear-gradient(90deg,#0b3d24,#16883f);color:#fff;display:flex;align-items:center;gap:10px;padding:10px 14px}
+header b{font-size:1.05rem;flex:1}
+header button{background:rgba(255,255,255,.18);color:#fff;border:0;border-radius:10px;padding:8px 12px;font-size:1rem;cursor:pointer}
+nav{position:fixed;top:0;left:0;bottom:0;width:270px;background:var(--card);border-right:1px solid var(--bd);padding:calc(64px + env(safe-area-inset-top,0px)) 10px 20px;overflow-y:auto;z-index:15;transform:translateX(-100%);transition:.25s}
+nav.open{transform:none}
+nav h4{margin:14px 8px 4px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mu)}
+nav a{display:block;padding:7px 10px;border-radius:8px;color:var(--tx);text-decoration:none;font-size:.93rem}
+nav a:hover,nav a.on{background:var(--gl);color:var(--g);font-weight:600}
+main{max-width:860px;margin:0 auto;padding:16px 14px 60px}
+.hero{background:linear-gradient(135deg,#0b3d24,#16883f 70%,#4ade80);color:#fff;border-radius:20px;padding:26px 20px;margin-bottom:18px}
+.hero h1{margin:0;font-size:clamp(2rem,9vw,3.4rem);line-height:1.05}
+.hero h1 span{color:#9df5bd}
+.hero p{margin:10px 0 0;opacity:.95}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tags span{background:rgba(255,255,255,.18);padding:4px 12px;border-radius:99px;font-size:.88rem}
+section{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px 16px;margin:16px 0}
+h2{margin:0 0 8px;color:var(--g);font-size:1.45rem;display:flex;gap:8px;align-items:center}
+h2 i{font-style:normal;background:var(--gl);border-radius:10px;padding:2px 8px;font-size:1rem}
+h3{margin:20px 0 6px;font-size:1.1rem}
+p,li{color:var(--tx)}
+ul,ol{padding-left:22px}
+code{background:var(--gl);color:var(--g);padding:1px 6px;border-radius:6px;font:.9em ui-monospace,Menlo,Consolas,monospace}
+pre{position:relative;background:var(--code);color:var(--ct);border-radius:12px;padding:14px;overflow-x:auto;margin:10px 0;font:.85rem/1.55 ui-monospace,Menlo,Consolas,monospace;border:1px solid var(--bd)}
+pre code{background:none;color:inherit;padding:0}
+pre .cp{position:sticky;float:right;right:0;top:0;margin:-6px -6px 0 8px;background:#16883f;color:#fff;border:0;border-radius:8px;padding:3px 10px;font-size:.75rem;cursor:pointer}
+.note{border-left:4px solid var(--g);background:var(--gl);padding:10px 14px;border-radius:0 10px 10px 0;margin:12px 0}
+.warn{border-left-color:#e0a100;background:rgba(224,161,0,.14)}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:420px;font-size:.92rem}
+th,td{border:1px solid var(--bd);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--gl);color:var(--g)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.grid div{background:var(--gl);border-radius:12px;padding:12px}
+.grid b{color:var(--g)}
+details{border:1px solid var(--bd);border-radius:12px;margin:8px 0;padding:2px 12px;background:var(--bg)}
+summary{cursor:pointer;font-weight:600;padding:10px 0}
+summary::marker{color:var(--g)}
+footer{text-align:center;color:var(--mu);padding:20px;font-size:.9rem}
+#sh{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:12}
+#sh.on{display:block}
+@media(min-width:960px){nav{transform:none;padding-top:20px}header button.m{display:none}header{margin-left:270px}main{margin-left:calc(270px + (100% - 270px - 860px)/2);margin-right:auto}#sh{display:none!important}}
+@media(min-width:960px) and (max-width:1130px){main{margin-left:270px;margin-right:0}}
+</style></head><body>
+<header><button class="m" onclick="tg()" aria-label="Menu">☰</button><b>🐙 GitHub Basics</b><button onclick="th()" aria-label="Theme">🌓</button></header>
+<div id="sh" onclick="tg()"></div>
+<nav id="nav">
+<h4>Start</h4><a href="#intro">What is Git & GitHub</a><a href="#setup">Account & Setup</a>
+<h4>Core GitHub</h4><a href="#repo">Repositories</a><a href="#cfpp">Clone, Fork, Pull, Push</a><a href="#branch">Branching & Merging</a><a href="#pr">Pull Requests</a><a href="#contrib">Contributing & Open Source</a><a href="#readme">README & Structure</a>
+<h4>GitHub Tabs</h4><a href="#features">Issues, Projects, Wiki…</a>
+<h4>GitHub Actions</h4><a href="#actions">Intro to Actions</a><a href="#workflow">Creating a Workflow</a><a href="#build">Build & Test</a><a href="#pages">Deploy Static Site</a><a href="#secrets">Environments & Secrets</a><a href="#auto">Automating Deployments</a>
+<h4>Help</h4><a href="#errors">Errors & Fixes</a><a href="#cheat">Cheat Sheet</a>
+</nav>
+<main>
+<div class="hero"><h1>GitHub <span>Basics</span></h1><p>From Code to Community — a simple, step-by-step guide with notes, commands, workflow code and error fixes.</p><div class="tags"><span>Learn</span><span>Build</span><span>Contribute</span><span>Deploy</span></div></div>
+
+<section id="intro"><h2><i>01</i>What is Git & GitHub?</h2>
+<p><b>Git</b> is a free tool on your computer that tracks changes in your files. It lets you go back to older versions and work with others without overwriting their work.</p>
+<p><b>GitHub</b> is a website that stores Git projects online. It adds teamwork tools: pull requests, issues, automation (Actions), free website hosting (Pages) and more.</p>
+<div class="tw"><table><tr><th>Git</th><th>GitHub</th></tr><tr><td>Software on your computer</td><td>Website / cloud service</td></tr><tr><td>Works offline</td><td>Needs internet</td></tr><tr><td>Tracks versions</td><td>Shares & collaborates</td></tr></table></div>
+<h3>Key words</h3>
+<div class="grid"><div><b>Repository</b><br>A project folder tracked by Git.</div><div><b>Commit</b><br>A saved snapshot of changes.</div><div><b>Branch</b><br>A separate line of work.</div><div><b>Remote</b><br>The online copy (usually <code>origin</code>).</div></div></section>
+
+<section id="setup"><h2><i>02</i>Account & Setup</h2>
+<ol><li>Go to <code>github.com</code> → <b>Sign up</b> → verify email.</li><li>Pick a clean username (it appears in your profile link).</li><li>Turn on <b>2FA</b> in Settings → Password and authentication.</li><li>Install Git from <code>git-scm.com</code>.</li></ol>
+<pre><code>git --version
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+git config --global init.defaultBranch main</code></pre>
+<h3>Connect safely with SSH (recommended)</h3>
+<pre><code>ssh-keygen -t ed25519 -C "you@example.com"
+cat ~/.ssh/id_ed25519.pub     # copy this output
+# GitHub → Settings → SSH and GPG keys → New SSH key → paste
+ssh -T git@github.com         # test</code></pre>
+<div class="note">Passwords no longer work for Git over HTTPS. Use SSH or a <b>Personal Access Token</b> (Settings → Developer settings).</div>
+<h3>Build your profile</h3><p>Add a photo and bio, pin your best repos, and create a repo named exactly like your username with a <code>README.md</code> — it becomes your profile page.</p></section>
+
+<section id="repo"><h2><i>03</i>Creating & Managing Repositories</h2>
+<p>Click <b>+ → New repository</b>. Choose a name, <b>Public</b> or <b>Private</b>, and optionally add README, <code>.gitignore</code> and a license.</p>
+<h3>Start from your computer</h3>
+<pre><code>mkdir my-project &amp;&amp; cd my-project
+git init
+echo "# My Project" &gt; README.md
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin git@github.com:USERNAME/my-project.git
+git push -u origin main</code></pre>
+<h3>Daily commands</h3>
+<div class="tw"><table><tr><th>Command</th><th>What it does</th></tr>
+<tr><td><code>git status</code></td><td>Shows changed files</td></tr>
+<tr><td><code>git add file</code> / <code>git add .</code></td><td>Stages changes</td></tr>
+<tr><td><code>git commit -m "msg"</code></td><td>Saves a snapshot</td></tr>
+<tr><td><code>git log --oneline</code></td><td>Shows history</td></tr>
+<tr><td><code>git diff</code></td><td>Shows what changed</td></tr>
+<tr><td><code>git restore file</code></td><td>Discards unstaged edits</td></tr></table></div>
+<h3>.gitignore</h3><pre><code>node_modules/
+.env
+dist/
+*.log
+.DS_Store</code></pre>
+<div class="note warn"><b>Never commit passwords, API keys or <code>.env</code> files.</b> If you did, delete the key and create a new one — removing it from history is not enough.</div>
+<p>Manage a repo in <b>Settings</b>: rename, change visibility, add collaborators, protect branches, or delete.</p></section>
+
+<section id="cfpp"><h2><i>04</i>Clone, Fork, Pull, Push</h2>
+<div class="grid"><div><b>Clone</b><br>Download a repo to your computer.</div><div><b>Fork</b><br>Your own online copy of someone else's repo.</div><div><b>Pull</b><br>Bring new online changes to your computer.</div><div><b>Push</b><br>Send your commits online.</div></div>
+<pre><code># Clone
+git clone git@github.com:USERNAME/repo.git
+cd repo
+
+# Push your work
+git add . &amp;&amp; git commit -m "Add feature"
+git push
+
+# Pull latest
+git pull origin main</code></pre>
+<h3>Working with a fork</h3>
+<pre><code>git clone git@github.com:YOU/repo.git
+git remote add upstream git@github.com:OWNER/repo.git
+git fetch upstream
+git merge upstream/main     # keep your fork updated
+git push origin main</code></pre>
+<div class="note"><code>fetch</code> only downloads changes. <code>pull</code> = <code>fetch</code> + <code>merge</code>.</div></section>
+
+<section id="branch"><h2><i>05</i>Branching & Merging</h2>
+<p>A branch lets you try ideas without breaking <code>main</code>.</p>
+<pre><code>git branch                    # list branches
+git switch -c feat/login      # create + move
+# ...edit, add, commit...
+git push -u origin feat/login
+git switch main
+git merge feat/login
+git branch -d feat/login      # delete after merge</code></pre>
+<h3>Merge conflicts</h3>
+<p>A conflict happens when two people change the same lines. Git marks them:</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+your version
+=======
+their version
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feat/login</code></pre>
+<ol><li>Open the file, keep the correct code, delete the 3 marker lines.</li><li><code>git add file</code></li><li><code>git commit</code> (or <code>git merge --continue</code>).</li></ol>
+<p>Stuck? Cancel with <code>git merge --abort</code>.</p>
+<div class="note">Naming tip: <code>feat/name</code> for features, <code>fix/name</code> for bugs.</div></section>
+
+<section id="pr"><h2><i>06</i>Pull Requests (PR)</h2>
+<p>A PR asks the project to review and merge your branch.</p>
+<ol><li>Push your branch.</li><li>Click <b>Compare & pull request</b>.</li><li>Write a clear title and describe what and why. Link issues with <code>Closes #12</code>.</li><li>Wait for checks (Actions) and reviews.</li><li>Fix feedback by pushing more commits — the PR updates itself.</li><li>Merge: <b>Merge commit</b>, <b>Squash</b> (one clean commit) or <b>Rebase</b>.</li></ol>
+<pre><code>## What
+Adds login form validation
+
+## Why
+Users could submit empty fields
+
+Closes #12</code></pre>
+<p>Use <b>Draft PR</b> when work is unfinished.</p></section>
+
+<section id="contrib"><h2><i>07</i>Contributions & Open Source</h2>
+<h3>Your first contribution</h3>
+<ol><li>Find a repo; search issues labelled <code>good first issue</code> or <code>help wanted</code>.</li><li>Read <code>README.md</code>, <code>CONTRIBUTING.md</code> and <code>CODE_OF_CONDUCT.md</code>.</li><li>Comment on the issue to claim it.</li><li>Fork → clone → branch → fix → commit → push.</li><li>Open a PR and be polite and patient.</li></ol>
+<h3>Good habits</h3>
+<ul><li>Small, focused changes.</li><li>Clear commit messages: <code>fix: handle empty email</code>.</li><li>Follow the project's style and tests.</li></ul>
+<p>Your green contribution graph on your profile shows daily activity. Check the <b>License</b> (MIT, Apache-2.0, GPL) before reusing code.</p></section>
+
+<section id="readme"><h2><i>08</i>Good README & Project Structure</h2>
+<pre><code># Project Name
+One-line description.
+
+## Features
+- Fast
+- Simple
+
+## Installation
+git clone https://github.com/USER/project.git
+npm install
+
+## Usage
+npm start
+
+## Contributing
+Pull requests are welcome.
+
+## License
+MIT</code></pre>
+<h3>Typical structure</h3>
+<pre><code>project/
+├── .github/
+│   ├── workflows/ci.yml
+│   └── ISSUE_TEMPLATE/
+├── src/
+├── tests/
+├── docs/
+├── .gitignore
+├── LICENSE
+├── CONTRIBUTING.md
+└── README.md</code></pre>
+<p>Markdown basics: <code># Heading</code>, <code>**bold**</code>, <code>`code`</code>, <code>[text](url)</code>, <code>![alt](image)</code>, <code>- list</code>.</p></section>
+
+<section id="features"><h2><i>09</i>GitHub Tabs Explained</h2>
+<div class="tw"><table><tr><th>Tab</th><th>Use it for</th></tr>
+<tr><td><b>Code</b></td><td>Files, branches, commits, releases</td></tr>
+<tr><td><b>Issues</b></td><td>Bugs, ideas, tasks. Use labels, assignees, milestones</td></tr>
+<tr><td><b>Pull requests</b></td><td>Review and merge changes</td></tr>
+<tr><td><b>Actions</b></td><td>Automate build, test, deploy</td></tr>
+<tr><td><b>Projects</b></td><td>Kanban board / table to plan work</td></tr>
+<tr><td><b>Wiki</b></td><td>Long documentation pages</td></tr>
+<tr><td><b>Security</b></td><td>Dependabot alerts, secret scanning, code scanning, policy</td></tr>
+<tr><td><b>Insights</b></td><td>Contributors, traffic, dependency graph</td></tr>
+<tr><td><b>Settings</b></td><td>Access, branches, Pages, secrets, webhooks</td></tr></table></div>
+<h3>Other useful features</h3>
+<ul><li><b>Discussions</b> – community Q&A.</li><li><b>Releases & Tags</b> – version your app (<code>v1.0.0</code>).</li><li><b>Stars / Watch</b> – bookmark and follow repos.</li><li><b>Codespaces</b> – coding environment in the browser.</li><li><b>Gists</b> – share small snippets.</li><li>Press <code>.</code> on any repo to open the web editor.</li></ul>
+<h3>Issue template</h3>
+<pre><code>**Bug**: Button does nothing
+**Steps**: 1. Open page 2. Click Save
+**Expected**: Data saves
+**Actual**: Nothing happens
+**Screenshot / Error**: ...</code></pre></section>
+
+<section id="actions"><h2><i>10</i>Introduction to GitHub Actions</h2>
+<p><b>GitHub Actions</b> runs tasks automatically when something happens in your repo — like a push or PR. This is called <b>CI/CD</b>: <b>CI</b> (Continuous Integration) builds and tests code; <b>CD</b> (Continuous Deployment) publishes it.</p>
+<div class="grid"><div><b>Workflow</b><br>A YAML file in <code>.github/workflows/</code></div><div><b>Event</b><br>The trigger (<code>push</code>, <code>pull_request</code>)</div><div><b>Job</b><br>A group of steps on one machine</div><div><b>Step</b><br>One command or action</div><div><b>Runner</b><br>The machine (<code>ubuntu-latest</code>)</div><div><b>Action</b><br>Reusable step, e.g. <code>actions/checkout</code></div></div>
+<div class="note">Public repos get free Actions minutes. YAML is sensitive to spaces — use 2 spaces, never tabs.</div></section>
+
+<section id="workflow"><h2><i>11</i>Creating a Workflow (CI/CD Basics)</h2>
+<p>Create <code>.github/workflows/hello.yml</code>, commit and push. See it in the <b>Actions</b> tab.</p>
+<pre><code>name: Hello Workflow
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:      # manual "Run workflow" button
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v4
+
+      - name: Say hello
+        run: echo "Hello from GitHub Actions!"
+
+      - name: Show files
+        run: ls -la</code></pre>
+<h3>Common triggers</h3>
+<pre><code>on:
+  schedule:
+    - cron: "0 3 * * *"     # every day 03:00 UTC
+  release:
+    types: [published]
+  push:
+    paths: ["src/**"]       # only when src changes</code></pre>
+<h3>Multiple jobs & needs</h3>
+<pre><code>jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "testing"
+  deploy:
+    needs: test             # runs only if test passes
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "deploying"</code></pre></section>
+
+<section id="build"><h2><i>12</i>Build & Test Workflow</h2>
+<h3>Node.js example</h3>
+<pre><code>name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20]       # test on both versions
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test</code></pre>
+<h3>Python example</h3>
+<pre><code>name: Python CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: pytest</code></pre>
+<h3>Save build output (artifacts)</h3>
+<pre><code>      - uses: actions/upload-artifact@v4
+        with:
+          name: build-files
+          path: dist/</code></pre>
+<p>A green ✅ means passed; red ❌ means failed. Click the run to read the logs.</p></section>
+
+<section id="pages"><h2><i>13</i>Deploy a Static Website with Actions</h2>
+<p>Host HTML/CSS/JS (or React/Vite builds) free with <b>GitHub Pages</b>.</p>
+<ol><li>Put <code>index.html</code> in your repo.</li><li>Go to <b>Settings → Pages → Source → GitHub Actions</b>.</li><li>Add the workflow below and push.</li><li>Your site: <code>https://USERNAME.github.io/REPO/</code></li></ol>
+<h3>Plain HTML site</h3>
+<pre><code>name: Deploy Site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .             # folder to publish
+      - id: deployment
+        uses: actions/deploy-pages@v4</code></pre>
+<h3>Vite / React site (build first)</h3>
+<pre><code>    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4</code></pre>
+<div class="note warn">Blank page or missing CSS? Set the base path. In Vite: <code>base: "/REPO/"</code> in <code>vite.config.js</code>.</div></section>
+
+<section id="secrets"><h2><i>14</i>Environments & Secrets</h2>
+<p><b>Secrets</b> store private values (API keys, tokens) encrypted. <b>Variables</b> store non-private settings.</p>
+<p>Add: <b>Settings → Secrets and variables → Actions → New repository secret</b>.</p>
+<pre><code>steps:
+  - name: Use a secret
+    env:
+      API_KEY: ${{ secrets.API_KEY }}
+      MODE: ${{ vars.APP_MODE }}
+    run: ./deploy.sh      # reads $API_KEY safely</code></pre>
+<div class="note warn">Never <code>echo</code> a secret. GitHub hides them as <code>***</code> in logs, but don't rely on it. Secrets are not passed to workflows from forks.</div>
+<h3>Environments</h3>
+<p>Create in <b>Settings → Environments</b> (e.g. <code>staging</code>, <code>production</code>). Add secrets per environment, <b>required reviewers</b> (manual approval) and branch limits.</p>
+<pre><code>jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+    environment: production   # waits for approval if set
+    steps:
+      - run: echo "Deploying with ${{ secrets.PROD_TOKEN != '' }}"</code></pre>
+<h3>Built-in values</h3>
+<div class="tw"><table><tr><th>Expression</th><th>Meaning</th></tr><tr><td><code>${{ github.actor }}</code></td><td>User who triggered it</td></tr><tr><td><code>${{ github.ref_name }}</code></td><td>Branch / tag name</td></tr><tr><td><code>${{ github.sha }}</code></td><td>Commit ID</td></tr><tr><td><code>${{ secrets.GITHUB_TOKEN }}</code></td><td>Auto token for the repo</td></tr></table></div></section>
+
+<section id="auto"><h2><i>15</i>Automating Deployments</h2>
+<p>Full pipeline: <b>push → test → build → deploy</b>. Deploy only if tests pass.</p>
+<pre><code>name: CI/CD
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+      - run: npm test
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci &amp;&amp; npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: dist }
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.d.outputs.page_url }}
+    steps:
+      - id: d
+        uses: actions/deploy-pages@v4</code></pre>
+<h3>More automation ideas</h3>
+<ul><li><b>Dependabot</b> – auto PRs for outdated packages: add <code>.github/dependabot.yml</code>.</li><li><b>Auto-label PRs</b> and welcome new contributors.</li><li><b>Scheduled jobs</b> with <code>cron</code>.</li><li><b>Release on tag</b>: <code>on: push: tags: ["v*"]</code>.</li></ul>
+<pre><code># .github/dependabot.yml
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly</code></pre></section>
+
+<section id="errors"><h2><i>16</i>Errors & How to Fix Them</h2>
+<p>Tap an error to see the fix.</p>
+<h3>Git errors</h3>
+<details><summary>Permission denied (publickey)</summary><p>GitHub can't find your SSH key.</p><pre><code>ssh-add ~/.ssh/id_ed25519
+ssh -T git@github.com</code></pre><p>Make sure the public key is added in GitHub settings, or switch to HTTPS with a token.</p></details>
+<details><summary>Authentication failed / Password auth removed</summary><p>Use a Personal Access Token as the password, or switch to SSH:</p><pre><code>git remote set-url origin git@github.com:USER/REPO.git</code></pre></details>
+<details><summary>fatal: not a git repository</summary><p>You're in the wrong folder. <code>cd</code> into your project or run <code>git init</code>.</p></details>
+<details><summary>failed to push some refs / rejected (non-fast-forward)</summary><p>The online repo has commits you don't have.</p><pre><code>git pull --rebase origin main
+git push</code></pre></details>
+<details><summary>remote origin already exists</summary><pre><code>git remote -v
+git remote set-url origin NEW_URL</code></pre></details>
+<details><summary>Merge conflict</summary><p>Edit the file, remove <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> markers, then:</p><pre><code>git add .
+git commit -m "Resolve conflict"</code></pre></details>
+<details><summary>Please tell me who you are</summary><pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"</code></pre></details>
+<details><summary>Committed to wrong branch / wrong message</summary><pre><code>git commit --amend -m "Correct message"   # last commit only
+git reset --soft HEAD~1                     # undo commit, keep files</code></pre></details>
+<details><summary>Accidentally committed a secret or big file</summary><p>Revoke the secret immediately and make a new one. Then remove the file:</p><pre><code>git rm --cached .env
+echo ".env" &gt;&gt; .gitignore
+git commit -m "Remove .env"</code></pre></details>
+<details><summary>File exceeds 100 MB limit</summary><p>Use Git LFS (<code>git lfs track "*.zip"</code>) or don't commit large files.</p></details>
+<details><summary>Detached HEAD</summary><pre><code>git switch main</code></pre><p>To keep work done there: <code>git switch -c new-branch</code></p></details>
+
+<h3>GitHub Actions errors</h3>
+<details><summary>Workflow doesn't appear / doesn't run</summary><ul><li>File must be in <code>.github/workflows/</code> exactly, ending in <code>.yml</code> or <code>.yaml</code>.</li><li>Check <code>on:</code> branch names match yours (<code>main</code> vs <code>master</code>).</li><li>Actions must be enabled in Settings → Actions.</li></ul></details>
+<details><summary>Invalid workflow file / YAML syntax error</summary><p>Fix indentation (spaces only). Quote values with colons or <code>${{ }}</code> in tricky places. Use an editor with YAML highlighting.</p></details>
+<details><summary>Process completed with exit code 1</summary><p>A command failed. Open the failing step and read the lines above the red error. Run the same command on your computer to reproduce.</p></details>
+<details><summary>npm ci fails: package-lock.json not found</summary><p>Commit <code>package-lock.json</code>, or use <code>npm install</code>.</p></details>
+<details><summary>Resource not accessible by integration (403)</summary><p>Give the workflow permission:</p><pre><code>permissions:
+  contents: write     # or pages: write, pull-requests: write</code></pre><p>Also check Settings → Actions → General → Workflow permissions.</p></details>
+<details><summary>Pages deploy: "Get Pages site failed" / not enabled</summary><p>Go to Settings → Pages and set Source to <b>GitHub Actions</b>. Make sure the repo is public (or your plan supports private Pages).</p></details>
+<details><summary>Site shows 404 or blank page after deploy</summary><ul><li>Need <code>index.html</code> in the published folder.</li><li>Fix asset paths: use relative paths (<code>./style.css</code>) or set <code>base</code>.</li><li>Wait 1–2 minutes and hard-refresh.</li></ul></details>
+<details><summary>Secret is empty in the workflow</summary><p>Check exact name spelling (case-sensitive), that it's in the right scope (repo vs environment), and that the run isn't from a fork.</p></details>
+<details><summary>Action not found / Unable to resolve action</summary><p>Check spelling and version: <code>actions/checkout@v4</code>. Pin to an existing tag.</p></details>
+<details><summary>Job waiting for approval</summary><p>Your environment has required reviewers. A reviewer must click <b>Review deployments → Approve</b>.</p></details>
+<div class="note"><b>Debug tip:</b> add a step <code>run: pwd &amp;&amp; ls -la</code> to see where files are. Use <b>Re-run jobs → Enable debug logging</b> for more details.</div></section>
+
+<section id="cheat"><h2><i>17</i>Quick Cheat Sheet</h2>
+<pre><code>git init                      # start repo
+git clone URL                 # download repo
+git status                    # check changes
+git add .                     # stage all
+git commit -m "msg"           # save
+git push / git pull           # sync
+git switch -c name            # new branch
+git merge name                # merge branch
+git stash / git stash pop     # hide / restore changes
+git log --oneline --graph     # view history
+git restore file              # discard edits
+git reset --soft HEAD~1       # undo last commit
+git tag v1.0.0 &amp;&amp; git push --tags</code></pre>
+<h3>Your learning path</h3>
+<ol><li>Make an account and set up Git.</li><li>Create a repo and push your first commit.</li><li>Practice branches and pull requests.</li><li>Fix a "good first issue" in open source.</li><li>Add a CI workflow, then deploy a site with Pages.</li></ol>
+<p><b>Keep building, keep contributing.</b> 🚀</p></section>
+</main>
+<footer>GitHub Basics · Learn · Build · Contribute · Deploy</footer>
+<script>
+function tg(){document.getElementById('nav').classList.toggle('open');document.getElementById('sh').classList.toggle('on')}
+function th(){var r=document.documentElement,d=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=d?'light':'dark'}
+document.querySelectorAll('nav a').forEach(function(a){a.onclick=function(){if(innerWidth<960)tg()}});
+document.querySelectorAll('pre').forEach(function(p){var b=document.createElement('button');b.className='cp';b.textContent='Copy';b.onclick=function(){var t=p.querySelector('code').innerText;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){b.textContent='Copied!'},function(){var r=document.createRange();r.selectNodeContents(p.querySelector('code'));var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected'});setTimeout(function(){b.textContent='Copy'},1500)};p.insertBefore(b,p.firstChild)});
+var L=[].slice.call(document.querySelectorAll('nav a')),S=L.map(function(a){return document.querySelector(a.getAttribute('href'))});
+addEventListener('scroll',function(){var i=0;S.forEach(function(s,k){if(s.getBoundingClientRect().top<120)i=k});L.forEach(function(a,k){a.classList.toggle('on',k===i)})},{passive:true});
+</script></body></html>
